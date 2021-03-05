@@ -12,8 +12,14 @@ custom.modal = custom.modal || {};
 			
 			var dimm_layer = document.querySelector('#custom-modal-dimm');
 			var vail_layer = document.querySelector('#custom-modal-vail');
-			dimm_layer.parentNode.removeChild(dimm_layer);
-			vail_layer.parentNode.removeChild(vail_layer);
+			
+			if(dimm_layer != null) {
+				dimm_layer.parentNode.removeChild(dimm_layer);
+			}
+			
+			if(vail_layer != null) {
+				vail_layer.parentNode.removeChild(vail_layer);
+			}
 			
 			document.body.appendChild(this.dimm);
 			document.body.appendChild(this.vail);
@@ -33,6 +39,7 @@ custom.modal = custom.modal || {};
 		customModal.prototype.on = function() {
 			document.querySelector('#custom-modal-dimm').style.display = 'block';
 			document.querySelector('#custom-modal-vail').style.display = 'block';
+			this.element.style.position = 'absolute';
 			this.element.style.zIndex = '65535';
 			this.element.style.display = 'block';
 		}
