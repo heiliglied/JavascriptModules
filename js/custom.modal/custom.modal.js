@@ -22,8 +22,9 @@ custom.modal = custom.modal || {};
 			
 			var dimm_layer = document.querySelector('#custom-modal-dimm');
 			
-			if(dimm_layer != null) {
-				dimm_layer.parentNode.removeChild(dimm_layer);
+			if(dimm_layer != null) {				
+				//dimm_layer.parentNode.removeChild(dimm_layer);
+				document.body.removeChild(dimm_layer);
 			}
 			
 			if (typeof Object.assign !== 'function') {
