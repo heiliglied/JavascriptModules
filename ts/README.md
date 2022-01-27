@@ -1,5 +1,5 @@
 # 체크박스 다중선택을 위한 스크립트.  
-## typescript 연습용으로 ts로 만들어 봄.  
+typescript 연습용으로 ts로 만들어 봄.  
 
 ### 사용법  
  - let checker = heiliglied.CheckboxChecker();
