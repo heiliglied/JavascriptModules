@@ -105,6 +105,10 @@ heiliglied.customLoading = heiliglied.customLoading || {};
 			}
 		}
 		
+		customLoading.prototype.change = function(image) {
+			document.querySelector('#custom-loading-image').setAttribute('src', image);
+		}
+		
 		return customLoading;
 	})();
 	
