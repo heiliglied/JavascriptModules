@@ -88,6 +88,14 @@ custom.modal = custom.modal || {};
 			}
 		}
 		
+		customModal.prototype.only = function() {
+			document.querySelector('#custom-modal-dimm').style.display = 'block';
+			
+			if(customModal.prototype.options.bodyFix == 'on') {
+				document.querySelector('body').style.overflow = 'hidden';
+			}
+		}
+		
 		return customModal;
 	})();
 	
