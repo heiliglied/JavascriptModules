@@ -96,6 +96,13 @@ custom.modal = custom.modal || {};
 			}
 		}
 		
+		customModal.prototype.dimmOff = function() {
+			document.querySelector('#custom-modal-dimm').style.display = 'none';
+			if(customModal.prototype.options.bodyFix == 'on') {
+				document.body.style.overflow = '';
+			}
+		}
+		
 		return customModal;
 	})();
 	
