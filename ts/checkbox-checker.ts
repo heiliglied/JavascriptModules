@@ -4,11 +4,11 @@ namespace heiliglied {
         checkboxName: string;
         constructor() {}
 
-        changeStatus(totalChecker: string, checkboxName: string) {
+        changeStatus(totalChecker: string, checkboxes: string) {
             this.totalChecker = totalChecker;
-            this.checkboxName = checkboxName;
-            let totalBox = <HTMLInputElement>document.getElementById(this.totalChecker);
-            let checkbox = document.getElementsByName(this.checkboxName);
+            this.checkboxes = checkboxes;
+            let totalBox = <HTMLInputElement>document.querySelector(this.totalChecker);
+            let checkbox = document.querySelectorAll(this.checkboxes);
 
             totalBox.addEventListener('change', function(){
 	            let checked;
