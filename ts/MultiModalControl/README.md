@@ -6,7 +6,7 @@ let modals = new MultiModalControl(
         bodyFix: 모달 생성시 스크롤이 생성된 상태일 때 스크롤 on/off 여부(true, false 기본값 true)
         index: zIndex 값(number 기본값 10000)
     }
-);
+);  
 modals.setModal(
     depth: 모달 단계. 나중에 생성되더라도 depth가 낮으면 아래에 생성됨,
     element: 모달로 생성할 element. element를 그대로 모달 안에 넣어줌. 
