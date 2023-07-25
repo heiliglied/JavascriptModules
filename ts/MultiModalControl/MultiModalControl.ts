@@ -139,4 +139,96 @@ export class MultiModalControl {
         document.getElementById(modalId)?.remove();
         document.getElementById(vailId)?.remove();
     }
+
+    setModalReference(depth: number, vail: boolean, draggable: boolean, contents: string) {
+        this.draggable = draggable;
+        let vailId = 'multi-vail-' + depth;
+
+        if(vail == true) {
+            
+            let vailElement = document.createElement('div');
+            vailElement.setAttribute('id', vailId);
+            vailElement.setAttribute('style', 'position:fixed; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            document.body.insertAdjacentElement('beforeend', vailElement);
+        }
+
+        let modalElement = document.createElement('div');
+        let modalId = 'multi-modal-' + depth;
+        let modalWidth = '480px';
+        let modalHeight = 'auto';
+        
+        modalElement.setAttribute('id', modalId);
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translateX(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+
+        let mouseClick = this.mouseClick;
+        let posX = this.posX;
+        let posY = this.posY;
+
+        if(this.draggable == true) {
+            let dragElement = document.createElement('div');
+            dragElement.style.width = modalWidth;
+            dragElement.style.height = '20px';
+            dragElement.style.backgroundColor = "#abcdef";
+            modalHeight = String(Number(modalHeight.replace('px', '')) + 20) + 'px';
+
+            modalElement.insertAdjacentElement('beforeend', dragElement);
+            
+            dragElement.addEventListener('mousedown', function(event){
+                mouseClick = true;
+                posX = event.clientX;
+                posY = event.clientY;
+            });
+
+            dragElement.addEventListener('mousemove', function(event){
+                if(mouseClick == true) {
+                    let parentElement = this.parentElement; 
+
+                    var now_posX = posX - event.clientX;
+                    var now_posY = posY - event.clientY;
+
+                    posX = event.clientX;
+                    posY = event.clientY;
+
+                    parentElement.style.left = (parentElement.offsetLeft - now_posX) + "px";
+                    parentElement.style.top = (parentElement.offsetTop - now_posY) + "px";
+                }
+            });
+
+            dragElement.addEventListener('mouseup', function(event){
+                mouseClick = false;
+            });
+
+            document.addEventListener('mouseup', function(event){
+                mouseClick = false;
+            });
+        }
+
+        if(this.bodyFix == true) {
+            document.querySelector('body').style.overflow = 'hidden';
+        }
+
+        let contentElemnt = document.createElement('div');
+        contentElemnt.setAttribute('style', 'width: calc(100% - 10px); padding: 5px; background-color: white;');
+        contentElemnt.innerText = contents;
+
+        let footerElement = document.createElement('div');
+        footerElement.setAttribute('style', 'width: calc(100% - 10px); border-top: 2px #000000 solid; padding: 5px; background-color: white; text-align: right');
+
+        let closeButton = document.createElement('button');
+        closeButton.setAttribute('id', 'multi-button-' + depth);
+        closeButton.setAttribute('type', 'button');
+        closeButton.innerText = '닫기';
+        footerElement.insertAdjacentElement('beforeend', closeButton);
+
+        closeButton.addEventListener('click', function(event){
+            document.getElementById(modalId).remove();
+            document.getElementById(vailId).remove();
+        });
+
+        modalElement.insertAdjacentElement('beforeend', contentElemnt);
+        modalElement.insertAdjacentElement('beforeend', footerElement);
+
+        document.body.insertAdjacentElement('beforeend', modalElement);
+        this.zIndex++;
+    }
 }
