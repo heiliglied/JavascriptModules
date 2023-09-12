@@ -8,9 +8,10 @@ let modals = new MultiModalControl(
     }
 );  
 modals.setModal(
-    depth: 모달 단계. 나중에 생성되더라도 depth가 낮으면 아래에 생성됨,
+    depth: 모달 단계. 나중에 생성되더라도 depth가 낮으면 아래에 생성됨(integer,
     element: 모달로 생성할 element. element를 그대로 모달 안에 넣어줌. 
-    vail: 모달 뒤쪽을 클릭하지 못하도록 전체를 덮는 vail을 생성해줌.
-    draggable: 모달 이동 가능여부.
-    dragArea: 드래그 가능한 영역 생성(true, false 기본값 false)
+    vail: 모달 뒤쪽을 클릭하지 못하도록 전체를 덮는 vail을 생성해줌(true/false).
+    autoClose: 모달 영역 바깥 클릭 시 모달 닫기(true/false),
+    draggable: 모달 이동 가능여부(true/false).
+    dragArea: 드래그 가능한 영역 생성(true/false 기본값 false)
 );
