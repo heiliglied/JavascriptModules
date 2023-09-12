@@ -20,7 +20,7 @@ export class MultiModalControl {
         }
     }
 
-    setModal(depth: number, element: HTMLElement, vail: boolean, draggable: boolean, dragArea?: boolean) {
+    setModal(depth: number, element: HTMLElement, vail: boolean, autoClose: boolean, draggable: boolean, dragArea?: boolean) {
         let newElement = element.cloneNode(true);
         this.setElement = <HTMLElement>newElement;
         
@@ -37,7 +37,10 @@ export class MultiModalControl {
             let vailId = 'multi-vail-' + depth;
             let vailElement = document.createElement('div');
             vailElement.setAttribute('id', vailId);
-            vailElement.setAttribute('style', 'position:fixed; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            if(autoClose == true) {
+                vailElement.addEventListener('click', () => { this.closeModal(depth); });
+            }
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
 
@@ -49,7 +52,7 @@ export class MultiModalControl {
         this.setElement.setAttribute('id', '');
 
         modalElement.setAttribute('id', modalId);
-        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translateX(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translate(-50%, -50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
 
         if(this.draggable == true) {
             if(this.dragArea == true) {
@@ -69,7 +72,7 @@ export class MultiModalControl {
 
                 dragElement.addEventListener('mousemove', function(event){
                     if(mouseClick == true) {
-                        let parentElement = this.parentElement; 
+                        let parentElement = <HTMLElement>this.parentElement; 
 
                         var now_posX = posX - event.clientX;
                         var now_posY = posY - event.clientY;
@@ -120,7 +123,7 @@ export class MultiModalControl {
         }
 
         if(this.bodyFix == true) {
-            document.querySelector('body').style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
         }
         
         modalElement.insertAdjacentElement('beforeend', this.setElement);
@@ -133,14 +136,14 @@ export class MultiModalControl {
         let vailId =  'multi-vail-' + depth;
 
         if(this.bodyFix == true) {
-            document.querySelector('body').style.overflow = '';
+            document.body.style.overflow = '';
         }
 
         document.getElementById(modalId)?.remove();
         document.getElementById(vailId)?.remove();
     }
 
-    setModalReference(depth: number, vail: boolean, draggable: boolean, contents: string) {
+    setModalReference(depth: number, vail: boolean, autoClose: boolean, draggable: boolean, contents: string) {
         this.draggable = draggable;
         let vailId = 'multi-vail-' + depth;
 
@@ -148,7 +151,10 @@ export class MultiModalControl {
             
             let vailElement = document.createElement('div');
             vailElement.setAttribute('id', vailId);
-            vailElement.setAttribute('style', 'position:fixed; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            if(autoClose == true) {
+                vailElement.addEventListener('click', () => { this.closeModal(depth); });
+            }
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
 
@@ -158,7 +164,7 @@ export class MultiModalControl {
         let modalHeight = 'auto';
         
         modalElement.setAttribute('id', modalId);
-        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translateX(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translate(-50%, -50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
 
         let mouseClick = this.mouseClick;
         let posX = this.posX;
@@ -181,7 +187,7 @@ export class MultiModalControl {
 
             dragElement.addEventListener('mousemove', function(event){
                 if(mouseClick == true) {
-                    let parentElement = this.parentElement; 
+                    let parentElement = <HTMLElement>this.parentElement; 
 
                     var now_posX = posX - event.clientX;
                     var now_posY = posY - event.clientY;
@@ -204,7 +210,7 @@ export class MultiModalControl {
         }
 
         if(this.bodyFix == true) {
-            document.querySelector('body').style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
         }
 
         let contentElemnt = document.createElement('div');
