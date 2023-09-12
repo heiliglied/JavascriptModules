@@ -18,7 +18,8 @@ var MultiModalControl = /** @class */ (function () {
             }
         }
     }
-    MultiModalControl.prototype.setModal = function (depth, element, vail, draggable, dragArea) {
+    MultiModalControl.prototype.setModal = function (depth, element, vail, autoClose, draggable, dragArea) {
+        var _this = this;
         var newElement = element.cloneNode(true);
         this.setElement = newElement;
         this.draggable = draggable;
@@ -32,7 +33,10 @@ var MultiModalControl = /** @class */ (function () {
             var vailId = 'multi-vail-' + depth;
             var vailElement = document.createElement('div');
             vailElement.setAttribute('id', vailId);
-            vailElement.setAttribute('style', 'position:fixed; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            if (autoClose == true) {
+                vailElement.addEventListener('click', function () { _this.closeModal(depth); });
+            }
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
         var modalElement = document.createElement('div');
@@ -42,7 +46,7 @@ var MultiModalControl = /** @class */ (function () {
         this.setElement.style.display = '';
         this.setElement.setAttribute('id', '');
         modalElement.setAttribute('id', modalId);
-        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translateX(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translate(-50%, -50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
         if (this.draggable == true) {
             if (this.dragArea == true) {
                 var dragElement = document.createElement('div');
@@ -99,7 +103,7 @@ var MultiModalControl = /** @class */ (function () {
             }
         }
         if (this.bodyFix == true) {
-            document.querySelector('body').style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
         }
         modalElement.insertAdjacentElement('beforeend', this.setElement);
         document.body.insertAdjacentElement('beforeend', modalElement);
@@ -110,18 +114,22 @@ var MultiModalControl = /** @class */ (function () {
         var modalId = 'multi-modal-' + depth;
         var vailId = 'multi-vail-' + depth;
         if (this.bodyFix == true) {
-            document.querySelector('body').style.overflow = '';
+            document.body.style.overflow = '';
         }
         (_a = document.getElementById(modalId)) === null || _a === void 0 ? void 0 : _a.remove();
         (_b = document.getElementById(vailId)) === null || _b === void 0 ? void 0 : _b.remove();
     };
-    MultiModalControl.prototype.setModalReference = function (depth, vail, draggable, contents) {
+    MultiModalControl.prototype.setModalReference = function (depth, vail, autoClose, draggable, contents) {
+        var _this = this;
         this.draggable = draggable;
         var vailId = 'multi-vail-' + depth;
         if (vail == true) {
             var vailElement = document.createElement('div');
             vailElement.setAttribute('id', vailId);
-            vailElement.setAttribute('style', 'position:fixed; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+            if (autoClose == true) {
+                vailElement.addEventListener('click', function () { _this.closeModal(depth); });
+            }
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
         var modalElement = document.createElement('div');
@@ -129,7 +137,7 @@ var MultiModalControl = /** @class */ (function () {
         var modalWidth = '480px';
         var modalHeight = 'auto';
         modalElement.setAttribute('id', modalId);
-        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translateX(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translate(-50%, -50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
         var mouseClick = this.mouseClick;
         var posX = this.posX;
         var posY = this.posY;
@@ -164,7 +172,7 @@ var MultiModalControl = /** @class */ (function () {
             });
         }
         if (this.bodyFix == true) {
-            document.querySelector('body').style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
         }
         var contentElemnt = document.createElement('div');
         contentElemnt.setAttribute('style', 'width: calc(100% - 10px); padding: 5px; background-color: white;');
@@ -172,16 +180,13 @@ var MultiModalControl = /** @class */ (function () {
         var footerElement = document.createElement('div');
         footerElement.setAttribute('style', 'width: calc(100% - 10px); border-top: 2px #000000 solid; padding: 5px; background-color: white; text-align: right');
         var closeButton = document.createElement('button');
-        closeButton.setAttribute('type', 'button');
         closeButton.setAttribute('id', 'multi-button-' + depth);
+        closeButton.setAttribute('type', 'button');
         closeButton.innerText = '닫기';
         footerElement.insertAdjacentElement('beforeend', closeButton);
         closeButton.addEventListener('click', function (event) {
-            var button_depth = this.getAttribute('id');
-            var depth_number = button_depth.split('-')[2];
-
-            document.getElementById('multi-modal-' + depth_number).remove();
-            document.getElementById('multi-vail-' + depth_number).remove();
+            document.getElementById(modalId).remove();
+            document.getElementById(vailId).remove();
         });
         modalElement.insertAdjacentElement('beforeend', contentElemnt);
         modalElement.insertAdjacentElement('beforeend', footerElement);
