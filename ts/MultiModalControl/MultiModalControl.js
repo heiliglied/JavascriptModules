@@ -21,7 +21,12 @@ var MultiModalControl = /** @class */ (function () {
     MultiModalControl.prototype.setModal = function (depth, element, vail, autoClose, draggable, dragArea) {
         var _this = this;
         var newElement = element.cloneNode(true);
+        //id 항목들이 있을 시 겹치지 않도록 모든 ID에 -clone-depth를 추가한다.
         this.setElement = newElement;
+        var elementIds = this.setElement.querySelectorAll("[id]");
+        elementIds.forEach(function (e) {
+            e.id += '-clone-' + depth;
+        });
         this.draggable = draggable;
         if (dragArea != undefined && typeof (dragArea) === 'boolean') {
             this.dragArea = dragArea;
@@ -177,6 +182,10 @@ var MultiModalControl = /** @class */ (function () {
         var contentElemnt = document.createElement('div');
         contentElemnt.setAttribute('style', 'width: calc(100% - 10px); padding: 5px; background-color: white;');
         contentElemnt.innerText = contents;
+        var elementIds = this.setElement.querySelectorAll("[id]");
+        elementIds.forEach(function (e) {
+            e.id += '-clone-' + depth;
+        });
         var footerElement = document.createElement('div');
         footerElement.setAttribute('style', 'width: calc(100% - 10px); border-top: 2px #000000 solid; padding: 5px; background-color: white; text-align: right');
         var closeButton = document.createElement('button');
