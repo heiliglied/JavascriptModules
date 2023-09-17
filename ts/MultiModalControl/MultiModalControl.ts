@@ -58,7 +58,7 @@ export class MultiModalControl {
         this.setElement.setAttribute('id', '');
 
         modalElement.setAttribute('id', modalId);
-        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translate(-50%, -50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
 
         if(this.draggable == true) {
             if(this.dragArea == true) {
@@ -149,6 +149,28 @@ export class MultiModalControl {
         document.getElementById(vailId)?.remove();
     }
 
+    selfCloseModal(element) {
+        let modalIdValue = 'multi-modal-';
+        let vailIdValue = 'multi-vail-';
+        let htmlNode = <HTMLElement>element;
+        while(true) {
+            htmlNode = <HTMLElement>htmlNode.parentNode;
+            if(htmlNode.tagName == 'body') {
+                break;
+            } else {
+                if(htmlNode.id.indexOf(modalIdValue) != -1) {
+                    let nodeId = htmlNode.id.split('-');
+                    modalIdValue = modalIdValue + nodeId[2];
+                    vailIdValue = vailIdValue + nodeId[2];
+                    break;
+                }
+            }
+        }
+
+        document.getElementById(modalIdValue)?.remove();
+        document.getElementById(vailIdValue)?.remove();
+    }
+
     setModalReference(depth: number, vail: boolean, autoClose: boolean, draggable: boolean, contents: string) {
         this.draggable = draggable;
         let vailId = 'multi-vail-' + depth;
@@ -170,7 +192,7 @@ export class MultiModalControl {
         let modalHeight = 'auto';
         
         modalElement.setAttribute('id', modalId);
-        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translate(-50%, -50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
 
         let mouseClick = this.mouseClick;
         let posX = this.posX;
