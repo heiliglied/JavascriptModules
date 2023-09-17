@@ -51,7 +51,7 @@ var MultiModalControl = /** @class */ (function () {
         this.setElement.style.display = '';
         this.setElement.setAttribute('id', '');
         modalElement.setAttribute('id', modalId);
-        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translate(-50%, -50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
         if (this.draggable == true) {
             if (this.dragArea == true) {
                 var dragElement = document.createElement('div');
@@ -124,6 +124,28 @@ var MultiModalControl = /** @class */ (function () {
         (_a = document.getElementById(modalId)) === null || _a === void 0 ? void 0 : _a.remove();
         (_b = document.getElementById(vailId)) === null || _b === void 0 ? void 0 : _b.remove();
     };
+    MultiModalControl.prototype.selfCloseModal = function (element) {
+        var _a, _b;
+        var modalIdValue = 'multi-modal-';
+        var vailIdValue = 'multi-vail-';
+        var htmlNode = element;
+        while (true) {
+            htmlNode = htmlNode.parentNode;
+            if (htmlNode.tagName == 'body') {
+                break;
+            }
+            else {
+                if (htmlNode.id.indexOf(modalIdValue) != -1) {
+                    var nodeId = htmlNode.id.split('-');
+                    modalIdValue = modalIdValue + nodeId[2];
+                    vailIdValue = vailIdValue + nodeId[2];
+                    break;
+                }
+            }
+        }
+        (_a = document.getElementById(modalIdValue)) === null || _a === void 0 ? void 0 : _a.remove();
+        (_b = document.getElementById(vailIdValue)) === null || _b === void 0 ? void 0 : _b.remove();
+    };
     MultiModalControl.prototype.setModalReference = function (depth, vail, autoClose, draggable, contents) {
         var _this = this;
         this.draggable = draggable;
@@ -142,7 +164,7 @@ var MultiModalControl = /** @class */ (function () {
         var modalWidth = '480px';
         var modalHeight = 'auto';
         modalElement.setAttribute('id', modalId);
-        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 20; left: 50%; transform: translate(-50%, -50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        modalElement.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 50%; left: 50%; transform:  translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
         var mouseClick = this.mouseClick;
         var posX = this.posX;
         var posY = this.posY;
