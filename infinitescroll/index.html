@@ -1,0 +1,54 @@
+<!-- 사용 샘플 -->
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    #scroll_layer {
+        width: 100%;
+    }
+
+    #scroll_layer ul li {
+        width: 100%;
+        height: 100px;
+    }
+</style>
+</head>
+<body>
+<div id="scroll_layer">
+    <ul id="scroll_list">
+        <li>pre data</li>
+        <li>pre data</li>
+        <li>pre data</li>
+        <li>pre data</li>
+    </ul>
+    <div id="endList"></div>
+</div>
+</body>
+<script src="InfiniteScroll.js"></script>
+<script>
+let loopCount = 1;
+let loopEnd = 10;
+
+let addHtml = `
+                <li>Add Data</li>
+                <li>Add Data</li>
+                <li>Add Data</li>
+                <li>Add Data</li>
+                <li>Add Data</li>
+                <li>Add Data</li>
+                <li>Add Data</li>
+                <li>Add Data</li>
+                <li>Add Data</li>
+                <li>Add Data</li>
+            `;
+            
+infiniteScroll(document.getElementById("endList"), "#scroll_list", callload);
+
+function callload() {
+    if(loopCount < loopEnd) {
+        loopCount++;
+        return addHtml;
+    }
+}
+</script>
+</html>

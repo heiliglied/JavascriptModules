@@ -2,6 +2,7 @@ namespace heiliglied {
     export class CheckboxChecker {
         totalChecker: string;
         checkboxName: string;
+        checkboxes: string;
         constructor() {}
 
         changeStatus(totalChecker: string, checkboxes: string) {
