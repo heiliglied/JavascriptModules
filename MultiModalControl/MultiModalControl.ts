@@ -260,8 +260,8 @@ export class MultiModalControl {
         footerElement.insertAdjacentElement('beforeend', closeButton);
 
         closeButton.addEventListener('click', function(event){
-            document.getElementById(modalId).remove();
-            document.getElementById(vailId).remove();
+            document.getElementById(modalId)?.remove();
+            document.getElementById(vailId)?.remove();
         });
 
         modalElement.insertAdjacentElement('beforeend', contentElemnt);
