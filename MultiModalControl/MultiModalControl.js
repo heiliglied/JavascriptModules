@@ -27,13 +27,13 @@ var MultiModalControl = /** @class */ (function () {
         var posX = this.posX;
         var posY = this.posY;
         if (vail == true) {
-            var vailId = 'multi-vail-' + depth;
+            var vailId_1 = 'multi-vail-' + depth;
             var vailElement = document.createElement('div');
-            vailElement.setAttribute('id', vailId);
+            vailElement.setAttribute('id', vailId_1);
             vailElement.setAttribute('class', 'vail-element');
             vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
             if (autoClose == true) {
-                vailElement.addEventListener('click', function () { _this.closeModal(depth); });
+                vailElement.addEventListener('click', function () { _this.autoHideModal(element.getAttribute('id'), vailId_1); });
             }
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
@@ -102,6 +102,14 @@ var MultiModalControl = /** @class */ (function () {
         }
         element.style.display = '';
         this.zIndex++;
+    };
+    MultiModalControl.prototype.autoHideModal = function (elementId, vailId) {
+        var _a;
+        var element = document.getElementById(elementId);
+        if (element) {
+            element.style.display = 'none';
+        }
+        (_a = document.getElementById(vailId)) === null || _a === void 0 ? void 0 : _a.remove();
     };
     MultiModalControl.prototype.disableVail = function () {
         var vails = document.getElementsByClassName('vail-element');
