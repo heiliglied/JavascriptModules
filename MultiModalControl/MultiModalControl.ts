@@ -37,7 +37,7 @@ export class MultiModalControl {
             vailElement.setAttribute('class', 'vail-element');
             vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
             if(autoClose == true) {
-                vailElement.addEventListener('click', () => { this.closeModal(depth); });
+                vailElement.addEventListener('click', () => { this.autoHideModal(element.getAttribute('id'), vailId); });
             }
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
@@ -121,6 +121,14 @@ export class MultiModalControl {
         element.style.display = '';
         this.zIndex++;
     }
+
+    autoHideModal(elementId: string, vailId: string) {
+        const element = document.getElementById(elementId) as HTMLElement | null;
+        if(element) {
+            element.style.display = 'none';
+        }
+		document.getElementById(vailId)?.remove();
+	}
 
     disableVail() {
         let vails = document.getElementsByClassName('vail-element');
