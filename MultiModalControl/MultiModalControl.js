@@ -1,4 +1,5 @@
 "use strict";
+
 var MultiModalControl = /** @class */ (function () {
     function MultiModalControl(options) {
         this.zIndex = 10000;
@@ -17,8 +18,13 @@ var MultiModalControl = /** @class */ (function () {
             }
         }
     }
-    MultiModalControl.prototype.viewModal = function (depth, element, vail, autoClose, draggable, dragArea) {
+    MultiModalControl.prototype.viewModal = function (depth, e_id, vail, autoClose, draggable, dragArea) {
         var _this = this;
+        var _a, _b;
+        var element = document.getElementById(e_id);
+        if (element == null) {
+            return false;
+        }
         this.draggable = draggable;
         if (dragArea != undefined && typeof (dragArea) === 'boolean') {
             this.dragArea = dragArea;
@@ -33,16 +39,16 @@ var MultiModalControl = /** @class */ (function () {
             vailElement.setAttribute('class', 'vail-element');
             vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
             if (autoClose == true) {
-                vailElement.addEventListener('click', function () { _this.autoHideModal(element.getAttribute('id'), vailId_1); });
+                vailElement.addEventListener('click', function () { _this.autoHideModal(e_id, vailId_1); });
             }
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
-        var modalWidth = element.style.width;
-        var modalHeight = element.style.height;
+        var modalWidth = ((_a = element === null || element === void 0 ? void 0 : element.offsetWidth) !== null && _a !== void 0 ? _a : 0) + 'px';
+        var modalHeight = ((_b = element === null || element === void 0 ? void 0 : element.offsetHeight) !== null && _b !== void 0 ? _b : 0) + 'px';
         //let modalId = 'multi-modal-' + depth;
         //let modalId = element.getAttribute('id') ?? 'multi-modal-' + depth;
         //element.setAttribute('id', modalId);
-        element.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        element === null || element === void 0 ? void 0 : element.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
         if (this.draggable == true) {
             if (this.dragArea == true) {
                 var dragElement = element;
@@ -74,12 +80,12 @@ var MultiModalControl = /** @class */ (function () {
                 });
             }
             else {
-                element.addEventListener('mousedown', function (event) {
+                element === null || element === void 0 ? void 0 : element.addEventListener('mousedown', function (event) {
                     mouseClick = true;
                     posX = event.clientX;
                     posY = event.clientY;
                 });
-                element.addEventListener('mousemove', function (event) {
+                element === null || element === void 0 ? void 0 : element.addEventListener('mousemove', function (event) {
                     if (mouseClick == true) {
                         var now_posX = posX - event.clientX;
                         var now_posY = posY - event.clientY;
@@ -89,7 +95,7 @@ var MultiModalControl = /** @class */ (function () {
                         this.style.top = (this.offsetTop - now_posY) + "px";
                     }
                 });
-                element.addEventListener('mouseup', function (event) {
+                element === null || element === void 0 ? void 0 : element.addEventListener('mouseup', function (event) {
                     mouseClick = false;
                 });
                 document.addEventListener('mouseup', function (event) {
