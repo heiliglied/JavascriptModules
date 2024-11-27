@@ -48,8 +48,12 @@ export class MultiModalControl {
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
 
-        let modalWidth = (element?.offsetWidth ?? 0) + 'px';
-        let modalHeight = (element?.offsetHeight ?? 0) + 'px';
+        let modalWidth = String(element.offsetWidth);
+		modalWidth = Number(modalWidth) <= 360 ? '360' : modalWidth; 
+		modalWidth = modalWidth + 'px';
+        let modalHeight = String(element.offsetHeight);
+		modalHeight = Number(modalHeight) <= 120 ? '120' : modalHeight; 
+		modalHeight = modalHeight + 'px';
         //let modalId = 'multi-modal-' + depth;
         //let modalId = element.getAttribute('id') ?? 'multi-modal-' + depth;
         //element.setAttribute('id', modalId);
