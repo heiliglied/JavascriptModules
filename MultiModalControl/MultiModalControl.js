@@ -20,7 +20,6 @@ var MultiModalControl = /** @class */ (function () {
     }
     MultiModalControl.prototype.viewModal = function (depth, e_id, vail, autoClose, draggable, dragArea) {
         var _this = this;
-        var _a, _b;
         var element = document.getElementById(e_id);
         if (element == null) {
             return false;
@@ -43,8 +42,12 @@ var MultiModalControl = /** @class */ (function () {
             }
             document.body.insertAdjacentElement('beforeend', vailElement);
         }
-        var modalWidth = ((_a = element === null || element === void 0 ? void 0 : element.offsetWidth) !== null && _a !== void 0 ? _a : 0) + 'px';
-        var modalHeight = ((_b = element === null || element === void 0 ? void 0 : element.offsetHeight) !== null && _b !== void 0 ? _b : 0) + 'px';
+        var modalWidth = String(element.offsetWidth);
+        modalWidth = Number(modalWidth) <= 360 ? '360' : modalWidth;
+        modalWidth = modalWidth + 'px';
+        var modalHeight = String(element.offsetHeight);
+        modalHeight = Number(modalHeight) <= 120 ? '120' : modalHeight;
+        modalHeight = modalHeight + 'px';
         //let modalId = 'multi-modal-' + depth;
         //let modalId = element.getAttribute('id') ?? 'multi-modal-' + depth;
         //element.setAttribute('id', modalId);
