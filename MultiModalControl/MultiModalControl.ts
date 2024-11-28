@@ -37,27 +37,30 @@ export class MultiModalControl {
         let posY = this.posY;
 
         if(vail == true) {
-            let vailId = 'multi-vail-' + depth;
-            let vailElement = document.createElement('div');
-            vailElement.setAttribute('id', vailId);
-            vailElement.setAttribute('class', 'vail-element');
-            vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
-            if(autoClose == true) {
-                vailElement.addEventListener('click', () => { this.autoHideModal(e_id, vailId); });
-            }
-            document.body.insertAdjacentElement('beforeend', vailElement);
+            let vails = document.getElementsByClassName('vail-element');
+			if(vails.length < 1) {
+				let vailId = 'multi-vail-' + depth;
+				let vailElement = document.createElement('div');
+				vailElement.setAttribute('id', vailId);
+				vailElement.setAttribute('class', 'vail-element');
+				vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+				if(autoClose == true) {
+					vailElement.addEventListener('click', () => { this.autoHideModal(e_id, vailId); });
+				}
+				document.body.insertAdjacentElement('beforeend', vailElement);
+			}
         }
 
         let modalWidth = String(element.offsetWidth);
 		modalWidth = Number(modalWidth) <= 360 ? '360' : modalWidth; 
 		modalWidth = modalWidth + 'px';
-        //let modalHeight = String(element.offsetHeight);
-		//modalHeight = Number(modalHeight) <= 120 ? '120' : modalHeight; 
-		//modalHeight = modalHeight + 'px';
+        let modalHeight = String(element.offsetHeight);
+		modalHeight = Number(modalHeight) <= 120 ? '120' : modalHeight; 
+		modalHeight = modalHeight + 'px';
         //let modalId = 'multi-modal-' + depth;
         //let modalId = element.getAttribute('id') ?? 'multi-modal-' + depth;
         //element.setAttribute('id', modalId);
-        element?.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        element?.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
 
         if(this.draggable == true) {
             if(this.dragArea == true) {
@@ -177,15 +180,18 @@ export class MultiModalControl {
         let posY = this.posY;
 
         if(vail == true) {
-            let vailId = 'multi-vail-' + depth;
-            let vailElement = document.createElement('div');
-            vailElement.setAttribute('id', vailId);
-            vailElement.setAttribute('class', 'vail-element');
-            vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
-            if(autoClose == true) {
-                vailElement.addEventListener('click', () => { this.closeModal(depth); });
+            let vails = document.getElementsByClassName('vail-element');
+			if(vails.length < 1) {
+                let vailId = 'multi-vail-' + depth;
+                let vailElement = document.createElement('div');
+                vailElement.setAttribute('id', vailId);
+                vailElement.setAttribute('class', 'vail-element');
+                vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+                if(autoClose == true) {
+                    vailElement.addEventListener('click', () => { this.closeModal(depth); });
+                }
+                document.body.insertAdjacentElement('beforeend', vailElement);
             }
-            document.body.insertAdjacentElement('beforeend', vailElement);
         }
 
         let modalElement = document.createElement('div');
@@ -314,14 +320,18 @@ export class MultiModalControl {
         let vailId = 'multi-vail-' + depth;
 
         if(vail == true) {
-            let vailElement = document.createElement('div');
-            vailElement.setAttribute('id', vailId);
-            vailElement.setAttribute('class', 'vail-element');
-            vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
-            if(autoClose == true) {
-                vailElement.addEventListener('click', () => { this.closeModal(depth); });
+            let vails = document.getElementsByClassName('vail-element');
+			if(vails.length < 1) {
+                let vailId = 'multi-vail-' + depth;
+                let vailElement = document.createElement('div');
+                vailElement.setAttribute('id', vailId);
+                vailElement.setAttribute('class', 'vail-element');
+                vailElement.setAttribute('style', 'position: absolute; top:0; left:0; bottom: 0; width:100%; height:100%; background:#000; z-index:' + (this.zIndex + depth) + '; opacity:0.3;');
+                if(autoClose == true) {
+                    vailElement.addEventListener('click', () => { this.closeModal(depth); });
+                }
+                document.body.insertAdjacentElement('beforeend', vailElement);
             }
-            document.body.insertAdjacentElement('beforeend', vailElement);
         }
 
         let modalElement = document.createElement('div');
