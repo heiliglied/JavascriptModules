@@ -51,13 +51,13 @@ export class MultiModalControl {
         let modalWidth = String(element.offsetWidth);
 		modalWidth = Number(modalWidth) <= 360 ? '360' : modalWidth; 
 		modalWidth = modalWidth + 'px';
-        let modalHeight = String(element.offsetHeight);
-		modalHeight = Number(modalHeight) <= 120 ? '120' : modalHeight; 
-		modalHeight = modalHeight + 'px';
+        //let modalHeight = String(element.offsetHeight);
+		//modalHeight = Number(modalHeight) <= 120 ? '120' : modalHeight; 
+		//modalHeight = modalHeight + 'px';
         //let modalId = 'multi-modal-' + depth;
         //let modalId = element.getAttribute('id') ?? 'multi-modal-' + depth;
         //element.setAttribute('id', modalId);
-        element?.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; height:' + modalHeight + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
+        element?.setAttribute('style', 'position: fixed; width: ' + modalWidth + '; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); background:#FFF; z-index:' + (this.zIndex + depth + 1) + ';');
 
         if(this.draggable == true) {
             if(this.dragArea == true) {
