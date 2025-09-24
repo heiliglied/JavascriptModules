@@ -1,6 +1,6 @@
 ##사용법.  
 
-var foo = new heiliglied.customLoading({'bodyFix': 'on or off', 'image': 'user image location'});  
+var foo = new heiliglied.customLoading({'bodyFix': 'on or off', 'image': {'src': 'user image location', 'width': 'your image width value', 'height': 'your image height value'}});  
 foo.on(); //로딩 이미지를 출현시킨다.  
 foo.off(); //로딩 이미지를 없앤다.  
 
