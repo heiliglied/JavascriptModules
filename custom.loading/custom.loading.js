@@ -21,7 +21,11 @@ heiliglied.customLoading = heiliglied.customLoading || {};
 		//초기 기본 옵션값.
 		customLoading.prototype.options = {
 			'bodyFix': 'on',
-			'image': '/js/loading-spinner.gif',
+			'image': {
+                'src': 'loading-spinner.gif',
+                'width': '40px',
+                'height': '40px'
+             }
 		};
 		
 		//파라미터로 표기할 이미지와 option값을 받는다.
@@ -87,8 +91,9 @@ heiliglied.customLoading = heiliglied.customLoading || {};
 			this.element.style.position = 'fixed';
 			this.element.style.zIndex = '99999';
 			this.element.style.display = 'block';
-			this.element.setAttribute('src', this.options.image);
-			this.element.setAttribute('src', this.options.image);
+			this.element.setAttribute('src', this.options.image.src);
+			this.element.setAttribute('width', this.options.image.width);
+            this.element.setAttribute('width', this.options.image.height);
 			
 			if(customLoading.prototype.options.bodyFix == 'on') {
 				document.querySelector('body').style.overflow = 'hidden';
