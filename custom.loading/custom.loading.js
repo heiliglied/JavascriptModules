@@ -43,26 +43,28 @@ heiliglied.customLoading = heiliglied.customLoading || {};
 			
 			//옵션값을 기본 옵션값에 덮어씌움.
 			//객체를 복사하기 위해 얕은복사인지, 깊은 복사인지 체크.
-			if(typeof opt !== 'undefined') {
+			if (typeof opt !== 'undefined') {
+				// --- 1. 깊은 복사 문제 해결 (먼저 수행) ---
+				if (opt.image) {
+					// Object.assign이 존재한다고 가정하고 image 옵션을 먼저 병합.
+					// 아래의 폴리필 로직 덕분에 오래된 브라우저에서도 에러 없이 동작함.
+					opt.image = Object.assign({}, this.options.image, opt.image);
+				}
+
+				// --- 2. 브라우저 호환성 처리 (Polyfill) 및 최종 병합 ---
 				if (typeof Object.assign !== 'function') {
-					var native_option = this.options;
-					//반드시 쓰기가능, 복제불가, 설정 가능옵션으로 지정되어야한다. writable: true, enumerable: false, configurable: true
-					//오브젝트 수정 메소드로 값을 수정함.
+					// (주석) Object.assign이 없는 구형 브라우저를 위한 폴리필 정의
 					Object.defineProperty(Object, "assign", {
-						value: function assign(native_option, opt) { // .length of function is 2
+						value: function assign(target, varArgs) {
 							'use strict';
 							if (target === null || target === undefined) {
 								throw new TypeError('Cannot convert undefined or null to object');
 							}
-
 							var to = Object(target);
-
 							for (var index = 1; index < arguments.length; index++) {
 								var nextSource = arguments[index];
-
 								if (nextSource !== null && nextSource !== undefined) {
 									for (var nextKey in nextSource) {
-									// Avoid bugs when hasOwnProperty is shadowed
 										if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
 											to[nextKey] = nextSource[nextKey];
 										}
@@ -74,10 +76,10 @@ heiliglied.customLoading = heiliglied.customLoading || {};
 						writable: true,
 						configurable: true
 					});
-				} else {
-					//얕은 복사. 참조를 복사하지 않기 때문에 새로운 값을 그대로 할당함.
-					this.options = Object.assign(this.options, opt);
 				}
+				
+				// 최종 옵션을 병합
+				this.options = Object.assign({}, this.options, opt);
 			}
 			
 			document.body.appendChild(this.dimm);
