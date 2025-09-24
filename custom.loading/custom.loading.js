@@ -92,12 +92,13 @@ heiliglied.customLoading = heiliglied.customLoading || {};
 			this.element.style.zIndex = '99999';
 			this.element.style.display = 'block';
 			this.element.setAttribute('src', this.options.image.src);
-			this.element.setAttribute('width', this.options.image.width);
-            this.element.setAttribute('width', this.options.image.height);
+            this.element.style.width = this.options.image.width;
+            this.element.style.height = this.options.image.height;
 			
-			if(customLoading.prototype.options.bodyFix == 'on') {
-				document.querySelector('body').style.overflow = 'hidden';
-			}
+            //if(customLoading.prototype.options.bodyFix == 'on') {
+            if(this.options.bodyFix == 'on') {
+                document.body.style.overflow = 'hidden';
+            }
 		}
 		
 		customLoading.prototype.off = function() {
